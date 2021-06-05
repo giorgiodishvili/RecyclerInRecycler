@@ -9,14 +9,5 @@
         android:id="@+id/registrationFragment"
         android:name="com.android.taskfriday.RegistrationFragment"
         android:label="registration_fragment"
-        tools:layout="@layout/registration_fragment" >
-        <action
-            android:id="@+id/action_registrationFragment_to_showProfileFragment"
-            app:destination="@id/showProfileFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/showProfileFragment"
-        android:name="com.android.taskfriday.ShowProfileFragment"
-        android:label="fragment_show_profile"
-        tools:layout="@layout/fragment_show_profile" />
+        tools:layout="@layout/registration_fragment" />
 </navigation>

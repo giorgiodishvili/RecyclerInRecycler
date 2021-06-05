@@ -2,16 +2,15 @@ package com.android.taskfriday
 
 import android.util.Log.d
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.taskfriday.databinding.ItemParentRecyclerBinding
+import com.android.taskfriday.model.InputFieldModel
 
-class ParentAdapter() :    RecyclerView.Adapter<ParentAdapter.ViewHolder>(){
+class ParentAdapter :    RecyclerView.Adapter<ParentAdapter.ViewHolder>(){
     private val viewPool = RecyclerView.RecycledViewPool()
-    private var parents: MutableList<MutableList<User>> = mutableListOf()
+    private var parents: MutableList<MutableList<InputFieldModel>> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ViewHolder {
@@ -31,7 +30,7 @@ class ParentAdapter() :    RecyclerView.Adapter<ParentAdapter.ViewHolder>(){
         childLayoutManager.initialPrefetchItemCount = 4
         holder.recyclerView.apply {
             layoutManager = childLayoutManager
-            d("issuccerss apply","${parents.size}")
+            d("issuccerss apply", "${parents.size}")
             adapter = ChildAdapter(parents[position])
             setRecycledViewPool(viewPool)
         }
@@ -42,7 +41,7 @@ class ParentAdapter() :    RecyclerView.Adapter<ParentAdapter.ViewHolder>(){
         val recyclerView : RecyclerView = itemView.newsRecyclerView
     }
 
-    fun setData(items :MutableList<MutableList<User>>){
+    fun setData(items :MutableList<MutableList<InputFieldModel>>){
         this.parents.clear()
         this.parents.addAll(items)
         d("issuccerss","${parents.size}")

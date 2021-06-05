@@ -1,14 +1,14 @@
 package com.android.taskfriday.api
 
 
-import com.android.taskfriday.User
+import com.android.taskfriday.model.InputFieldModel
 import retrofit2.Response
 import retrofit2.http.GET
 
 
 interface NewsApi {
 
-    @GET("d531f5f5-180d-4364-bae7-791dae87f732")
-    suspend fun getRequest(): Response<List<List<User>>>
+    @GET("0ab55618-e96b-4a47-bd2a-1cd834fa72d0")
+    suspend fun getRequest(): Response<List<List<InputFieldModel>>>
 
 }

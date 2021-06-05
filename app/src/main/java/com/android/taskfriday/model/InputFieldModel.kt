@@ -1,8 +1,6 @@
-package com.android.taskfriday
+package com.android.taskfriday.model
 
-import android.text.InputType
-
-data class User(
+data class InputFieldModel(
     val field_id: Int,
     val hint: String,
     val field_type: String,
