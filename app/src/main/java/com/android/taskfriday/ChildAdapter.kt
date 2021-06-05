@@ -8,12 +8,14 @@ import com.android.taskfriday.databinding.ItemInputFieldBinding
 import com.android.taskfriday.model.InputFieldModel
 
 
-class ChildAdapter(private val children: List<InputFieldModel>)
-    : RecyclerView.Adapter<ChildAdapter.ViewHolder>(){
+class ChildAdapter(private val children: List<InputFieldModel>) :
+    RecyclerView.Adapter<ChildAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): ViewHolder {
-       return ViewHolder(
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        return ViewHolder(
             ItemInputFieldBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -26,15 +28,18 @@ class ChildAdapter(private val children: List<InputFieldModel>)
         return children.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder,
-                                  position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int
+    ) {
         holder.onBind()
     }
 
-    inner class ViewHolder(private val binding : ItemInputFieldBinding) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(){
+    inner class ViewHolder(private val binding: ItemInputFieldBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun onBind() {
             val child = children[absoluteAdapterPosition]
-            d("children","${children[absoluteAdapterPosition]}")
+            d("children", "${children[absoluteAdapterPosition]}")
             binding.root.id = child.field_id
             binding.root.hint = child.hint
         }

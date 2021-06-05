@@ -1,6 +1,5 @@
 package com.android.taskfriday
 
-import android.util.Log.d
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,16 +10,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class RegistrationViewModel : ViewModel() {
-    
-    private val fetchedFields = MutableLiveData<MutableList<MutableList<InputFieldModel>>>().apply{
+
+    private val fetchedFields = MutableLiveData<MutableList<MutableList<InputFieldModel>>>().apply {
         MutableLiveData<MutableList<MutableList<InputFieldModel>>>()
     }
-    
+
     val _fetchedFields = fetchedFields
-    
-    fun init(){
-        viewModelScope.launch{
-            withContext(Dispatchers.Default){
+
+    fun init() {
+        viewModelScope.launch {
+            withContext(Dispatchers.Default) {
                 populate()
             }
         }
@@ -32,9 +31,9 @@ class RegistrationViewModel : ViewModel() {
     }
 
     fun isRequired(id: Int): Boolean? {
-        fetchedFields.value?.forEach{ it ->
-            it.forEach{
-                if(it.field_id == id){
+        fetchedFields.value?.forEach { it ->
+            it.forEach {
+                if (it.field_id == id) {
                     return it.required
                 }
             }

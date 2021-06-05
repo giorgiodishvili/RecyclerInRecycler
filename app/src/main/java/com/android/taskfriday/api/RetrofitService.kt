@@ -1,4 +1,4 @@
- package com.android.taskfriday.api
+package com.android.taskfriday.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

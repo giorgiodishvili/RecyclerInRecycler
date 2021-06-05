@@ -8,22 +8,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.taskfriday.databinding.ItemParentRecyclerBinding
 import com.android.taskfriday.model.InputFieldModel
 
-class ParentAdapter :    RecyclerView.Adapter<ParentAdapter.ViewHolder>(){
+class ParentAdapter : RecyclerView.Adapter<ParentAdapter.ViewHolder>() {
     private val viewPool = RecyclerView.RecycledViewPool()
     private var parents: MutableList<MutableList<InputFieldModel>> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): ViewHolder {
-        return ViewHolder(ItemParentRecyclerBinding.inflate(LayoutInflater.from(parent.context),parent,
-            false))
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        return ViewHolder(
+            ItemParentRecyclerBinding.inflate(
+                LayoutInflater.from(parent.context), parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
         return parents.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder,
-                                  position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int
+    ) {
         val childLayoutManager = LinearLayoutManager(
             holder.recyclerView.context
         )
@@ -37,14 +45,15 @@ class ParentAdapter :    RecyclerView.Adapter<ParentAdapter.ViewHolder>(){
 
     }
 
-    inner class ViewHolder(itemView : ItemParentRecyclerBinding) : RecyclerView.ViewHolder(itemView.root){
-        val recyclerView : RecyclerView = itemView.newsRecyclerView
+    inner class ViewHolder(itemView: ItemParentRecyclerBinding) :
+        RecyclerView.ViewHolder(itemView.root) {
+        val recyclerView: RecyclerView = itemView.newsRecyclerView
     }
 
-    fun setData(items :MutableList<MutableList<InputFieldModel>>){
+    fun setData(items: MutableList<MutableList<InputFieldModel>>) {
         this.parents.clear()
         this.parents.addAll(items)
-        d("issuccerss","${parents.size}")
+        d("issuccerss", "${parents.size}")
         notifyDataSetChanged()
     }
 
