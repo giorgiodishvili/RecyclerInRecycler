@@ -1,17 +1,16 @@
 package com.android.taskfriday
 
 import android.os.Bundle
+import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.android.taskfriday.api.JsonService
 import com.android.taskfriday.databinding.RegistrationFragmentBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,21 +58,36 @@ class RegistrationFragment : Fragment() {
     private fun init() {
         binding.Register.setOnClickListener {
             val mapForBundle: MutableMap<Int, String> = mutableMapOf()
-            binding.recyclerView.children.forEach { recyclerChildren ->
-                recyclerChildren.findViewById<RecyclerView>(R.id.newsRecyclerView).children.forEach { editText ->
-                    if (editText is EditText)
-                        if (viewModel.isRequired(editText.id)!! && (editText).text.isNullOrBlank()) {
-                            Toast.makeText(
-                                requireContext(),
-                                "PLEASE INSERT ${editText.hint} FIELD",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            return@setOnClickListener
-                        } else {
-                            mapForBundle[editText.id] = editText.text.toString()
-                        }
+            i("childRV", ChildAdapter.editTextMap.toString())
+
+            ChildAdapter.editTextMap.forEach { editText ->
+                val inputFieldModel = viewModel._mapOfRequiredFields.value!![editText.key]!!
+                if (inputFieldModel.required && (editText.value).isEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "PLEASE FILL ${inputFieldModel.hint} FIELD",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                } else {
+                    mapForBundle[editText.key] = editText.value
                 }
             }
+//            binding.recyclerView.children.forEach { recyclerChildren ->
+//                recyclerChildren.findViewById<RecyclerView>(R.id.newsRecyclerView).children.forEach { editText ->
+//                    if (editText is EditText)
+//                        if(viewModel._mapOfRequiredFields.value!![editText.id]!! && (editText).text.isNullOrBlank() ){
+//                            Toast.makeText(
+//                                requireContext(),
+//                                "PLEASE INSERT ${editText.hint} FIELD",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                            return@setOnClickListener
+//                        } else {
+//                            mapForBundle[editText.id] = editText.text.toString()
+//                        }
+//                }
+//            }
             Toast.makeText(
                 requireContext(),
                 "All Good",

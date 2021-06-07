@@ -1,6 +1,5 @@
 package com.android.taskfriday
 
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,28 +31,29 @@ class ParentAdapter : RecyclerView.Adapter<ParentAdapter.ViewHolder>() {
         holder: ViewHolder,
         position: Int
     ) {
-        val childLayoutManager = LinearLayoutManager(
-            holder.recyclerView.context
-        )
-        childLayoutManager.initialPrefetchItemCount = 4
-        holder.recyclerView.apply {
-            layoutManager = childLayoutManager
-            d("issuccerss apply", "${parents.size}")
-            adapter = ChildAdapter(parents[position])
-            setRecycledViewPool(viewPool)
-        }
-
+        holder.onBind()
     }
 
     inner class ViewHolder(itemView: ItemParentRecyclerBinding) :
         RecyclerView.ViewHolder(itemView.root) {
-        val recyclerView: RecyclerView = itemView.newsRecyclerView
+        private val recyclerView: RecyclerView = itemView.newsRecyclerView
+        fun onBind() {
+            val childLayoutManager = LinearLayoutManager(
+                recyclerView.context
+            )
+            childLayoutManager.initialPrefetchItemCount = 4
+            recyclerView.apply {
+                layoutManager = childLayoutManager
+                adapter = ChildAdapter(parents[absoluteAdapterPosition])
+                setRecycledViewPool(viewPool)
+            }
+        }
+
     }
 
     fun setData(items: MutableList<MutableList<InputFieldModel>>) {
         this.parents.clear()
         this.parents.addAll(items)
-        d("issuccerss", "${parents.size}")
         notifyDataSetChanged()
     }
 

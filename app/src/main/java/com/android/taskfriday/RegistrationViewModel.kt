@@ -17,6 +17,13 @@ class RegistrationViewModel : ViewModel() {
 
     val _fetchedFields = fetchedFields
 
+
+    private val mapOfRequiredFields = MutableLiveData<MutableMap<Int, InputFieldModel>>().apply {
+        MutableLiveData<MutableMap<Int, InputFieldModel>>()
+    }
+
+    val _mapOfRequiredFields = mapOfRequiredFields
+
     fun init() {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
@@ -27,19 +34,14 @@ class RegistrationViewModel : ViewModel() {
 
     private suspend fun populate() {
         val response = RetrofitService.retrofit().getRequest()
-        fetchedFields.postValue(response.body() as MutableList<MutableList<InputFieldModel>>?)
-    }
-
-    fun isRequired(id: Int): Boolean? {
-        fetchedFields.value?.forEach { it ->
+        val data = response.body() as MutableList<MutableList<InputFieldModel>>?
+        fetchedFields.postValue(data)
+        val dataMap = mutableMapOf<Int, InputFieldModel>()
+        data!!.forEach { it ->
             it.forEach {
-                if (it.field_id == id) {
-                    return it.required
-                }
+                dataMap[it.field_id] = it
             }
         }
-        return null;
+        mapOfRequiredFields.postValue(dataMap)
     }
-
-
 }
