@@ -65,7 +65,7 @@ class RegistrationFragment : Fragment() {
                         if (viewModel.isRequired(editText.id)!! && (editText).text.isNullOrBlank()) {
                             Toast.makeText(
                                 requireContext(),
-                                "PLEASE INSERT ${editText.hint} FIELDS",
+                                "PLEASE INSERT ${editText.hint} FIELD",
                                 Toast.LENGTH_SHORT
                             ).show()
                             return@setOnClickListener

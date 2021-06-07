@@ -1,5 +1,6 @@
 package com.android.taskfriday
 
+import android.text.InputType
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -42,6 +43,10 @@ class ChildAdapter(private val children: List<InputFieldModel>) :
             d("children", "${children[absoluteAdapterPosition]}")
             binding.root.id = child.field_id
             binding.root.hint = child.hint
+            when(child.keyboard){
+                "text" -> binding.root.inputType = InputType.TYPE_CLASS_TEXT
+                "number" -> binding.root.inputType = InputType.TYPE_CLASS_NUMBER
+            }
         }
     }
 }
